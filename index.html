@@ -74,7 +74,7 @@
 
             function appendEndMessage() {
                 const endMessage = document.createElement("div");
-                endMessage.appendChild(document.createTextNode("答え出たね。"))
+                endMessage.appendChild(document.createTextNode("つまり、そういうことです。"))
                 formsBox.appendChild(endMessage);
 
                 appendEndCard()
@@ -133,13 +133,13 @@
 
     <div id="forms-box">
         <form action="" id="first-box">
-            <textarea placeholder="例: 生きるのが辛い"></textarea>
+            <textarea placeholder="例: 仕事行きたくない"></textarea>
             <input type="submit" value="決定">
         </form>
     </div>
 
     <div id="summary">
-        <textarea name="" id="" cols="30" rows="10" placeholder="ここにまとめが入るやで"></textarea>
+        <textarea name="" id="" cols="30" rows="10" placeholder="ここにまとめが表示されます" readonly></textarea>
     </div>
 </body>
 
