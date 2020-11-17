@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            main()
+        });
+
+        function main() {
+            const formsBox = document.getElementById("forms-box")
+            const firstBox = document.getElementById("first-box");
+            firstBox.addEventListener("submit", handleAppendForm)
+
+            // submitしたとき1度だけ子要素を生成して、以後submitしても何も起こらないようイベントリスナを削除する
+            function handleAppendForm(event) {
+                event.preventDefault();
+                appendForm();
+                event.target.removeEventListener("submit", handleAppendForm)
+                event.target.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                })
+            }
+
+            function appendForm() {
+
+                // 呼び出し回数に制限をかける
+                if (appendForm.num == undefined) {
+                    appendForm.num = 0
+                }
+                appendForm.num++;
+                appendForm.maxFormCount = 5;
+                if (appendForm.num >= appendForm.maxFormCount) {
+                    return appendEndMessage();
+                }
+                const box = document.createElement("form")
+                box.addEventListener("submit", handleAppendForm)
+
+                const label = document.createElement("label")
+                // setNextMessageできるようにする
+                label.appendChild(document.createTextNode("なぜですか?"))
+
+                const input = document.createElement("input")
+                input.setAttribute("type", "text")
+                input.setAttribute("id", `form-${appendForm.num}`)
+
+                const submit = document.createElement("input")
+                submit.setAttribute("type", "submit");
+                submit.setAttribute("value", "決定");
+
+                box.appendChild(label);
+                box.appendChild(input);
+                box.appendChild(submit);
+                formsBox.appendChild(box);
+            };
+
+            function appendEndMessage() {
+                const endMessage = document.createElement("div");
+                endMessage.appendChild(document.createTextNode("そういうことやで。"))
+                formsBox.appendChild(endMessage);
+                // TODO: まとめを作成する
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>なぜなぜbot</h1>
+
+    <div>
+        あなたが今めんどくさがってることはなんですか?
+    </div>
+
+    <div id="forms-box">
+        <form action="" id="first-box">
+            <input type="text" id="form-1">
+            <input type="submit" value="決定">
+        </form>
+    </div>
+
+    <div id="otsumami">
+        <textarea name="" id="" cols="30" rows="10" placeholder="ここにまとめが入るやで"></textarea>
+    </div>
+</body>
+
+</html>
