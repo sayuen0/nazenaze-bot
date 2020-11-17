@@ -34,19 +34,16 @@
                     appendForm.num = 0
                 }
                 appendForm.num++;
-                appendForm.maxFormCount = 5;
-                if (appendForm.num >= appendForm.maxFormCount) {
+                if (appendForm.num > 5) {
                     return appendEndMessage();
                 }
                 const box = document.createElement("form")
                 box.addEventListener("submit", handleAppendForm)
 
                 const label = document.createElement("label")
-                // setNextMessageできるようにする
                 label.appendChild(document.createTextNode("なぜですか?"))
 
-                const input = document.createElement("input")
-                input.setAttribute("type", "text")
+                const input = document.createElement("textarea")
                 input.setAttribute("id", `form-${appendForm.num}`)
 
                 const submit = document.createElement("input")
