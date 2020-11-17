@@ -3,10 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>なぜなぜくん</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +15,11 @@
 
         body {
             text-align: center;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
         }
 
         .end-card {
@@ -131,16 +135,19 @@
         <p>5回の自問自答で自分の本当の声にたどり着きませんか?</p>
     </div>
 
-    <div id="forms-box">
-        <form action="" id="first-box">
-            <textarea placeholder="例: 仕事行きたくない"></textarea>
-            <input type="submit" value="決定">
-        </form>
-    </div>
+    <section class="main">
+        <div id="forms-box">
+            <form action="" id="first-box">
+                <textarea placeholder="例: 仕事行きたくない"></textarea>
+                <input type="submit" value="決定">
+            </form>
+        </div>
 
-    <div id="summary">
-        <textarea name="" id="" cols="30" rows="10" placeholder="ここにまとめが表示されます" readonly></textarea>
-    </div>
+        <div id="summary">
+            <textarea name="" id="" cols="30" rows="10" placeholder="ここにまとめが表示されます" readonly></textarea>
+        </div>
+    </section>
+
 </body>
 
 </html>
