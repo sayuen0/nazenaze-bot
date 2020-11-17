@@ -13,8 +13,14 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             text-align: center;
+        }
+
+        .end-card {
+            width: 300px;
+            height: 300px;
         }
     </style>
     <script>
@@ -68,18 +74,29 @@
 
             function appendEndMessage() {
                 const endMessage = document.createElement("div");
-                endMessage.appendChild(document.createTextNode("そういうことやで。"))
+                endMessage.appendChild(document.createTextNode("答え出たね。"))
                 formsBox.appendChild(endMessage);
+
+                appendEndCard()
                 fillSummary()
             }
 
-            function fillSummary(){
+            function appendEndCard() {
+                const endCard = document.createElement("img")
+                let imageType = Math.random() < 0.5 ? "man" : "woman"
+                let src = `assets/images/pose_yareyare_${imageType}.png`;
+                endCard.setAttribute("src", src);
+                endCard.classList.add("end-card");
+                formsBox.appendChild(endCard);
+            }
+
+            function fillSummary() {
                 const answers = formsBox.querySelectorAll("textarea");
                 // create summary
                 let summary = "";
                 answers.forEach(function (a) {
                     summary += a.value.trim();
-                    if (a.id === "form-"+ (appendForm.num-1) ){
+                    if (a.id === "form-" + (appendForm.num - 1)) {
                         return
                     }
                     summary += "\n→";
@@ -89,10 +106,10 @@
                 createCopyButton(summaryBox);
             }
 
-            function createCopyButton(target){
+            function createCopyButton(target) {
                 const copyClipBoardButton = document.createElement("button")
                 copyClipBoardButton.appendChild(document.createTextNode("copy to clipboard"))
-                copyClipBoardButton.addEventListener("click", function(e){
+                copyClipBoardButton.addEventListener("click", function (e) {
                     e.preventDefault();
                     target.select();
                     document.execCommand("copy")
@@ -110,7 +127,7 @@
     <h1>なぜなぜくん</h1>
 
     <div>
-        <p>あなたが今めんどくさがってることはなんですか?</p>
+        <p>あなたが今悩んでいることはなんですか?面倒に感じていることはなんですか?</p>
         <p>5回の自問自答で自分の本当の声にたどり着きませんか?</p>
     </div>
 
