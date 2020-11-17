@@ -7,6 +7,16 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            text-align: center;
+        }
+    </style>
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
             main()
@@ -28,7 +38,6 @@
             }
 
             function appendForm() {
-
                 // 呼び出し回数に制限をかける
                 if (appendForm.num == undefined) {
                     appendForm.num = 0
@@ -44,6 +53,7 @@
                 label.appendChild(document.createTextNode("なぜですか?"))
 
                 const input = document.createElement("textarea")
+                input.setAttribute("placeholder", "理由を書きましょう");
                 input.setAttribute("id", `form-${appendForm.num}`)
 
                 const submit = document.createElement("input")
@@ -60,27 +70,58 @@
                 const endMessage = document.createElement("div");
                 endMessage.appendChild(document.createTextNode("そういうことやで。"))
                 formsBox.appendChild(endMessage);
-                // TODO: まとめを作成する
+                fillSummary()
+            }
+
+            function fillSummary(){
+                const answers = formsBox.querySelectorAll("textarea");
+                // create summary
+                let summary = "";
+                answers.forEach(function (a) {
+                    summary += a.value.trim();
+                    if (a.id === "form-"+ (appendForm.num-1) ){
+                        return
+                    }
+                    summary += "\n→";
+                })
+                const summaryBox = document.getElementById("summary").querySelector("textarea")
+                summaryBox.value = summary;
+                createCopyButton(summaryBox);
+            }
+
+            function createCopyButton(target){
+                const copyClipBoardButton = document.createElement("button")
+                copyClipBoardButton.appendChild(document.createTextNode("copy to clipboard"))
+                copyClipBoardButton.addEventListener("click", function(e){
+                    e.preventDefault();
+                    target.select();
+                    document.execCommand("copy")
+                    console.log("copyしました");
+                })
+
+                document.getElementById("summary").appendChild(document.createElement("br"));
+                document.getElementById("summary").appendChild(copyClipBoardButton);
             }
         }
     </script>
 </head>
 
 <body>
-    <h1>なぜなぜbot</h1>
+    <h1>なぜなぜくん</h1>
 
     <div>
-        あなたが今めんどくさがってることはなんですか?
+        <p>あなたが今めんどくさがってることはなんですか?</p>
+        <p>5回の自問自答で自分の本当の声にたどり着きませんか?</p>
     </div>
 
     <div id="forms-box">
         <form action="" id="first-box">
-            <input type="text" id="form-1">
+            <textarea placeholder="例: 生きるのが辛い"></textarea>
             <input type="submit" value="決定">
         </form>
     </div>
 
-    <div id="otsumami">
+    <div id="summary">
         <textarea name="" id="" cols="30" rows="10" placeholder="ここにまとめが入るやで"></textarea>
     </div>
 </body>
